@@ -1,0 +1,72 @@
+POST /api/authenticate
+    data: {
+        name: String
+        password: String
+    }
+    return {
+        success: Boolean,
+        message: String,
+        token: String
+    }
+
+POST /api/signup
+    data: {
+        name: String
+        password: String
+    }
+    return {
+        success: Boolean
+        message: String
+    }
+
+GET /api/searchUsers?q=...
+    params: q=String
+    return [JSONS]
+
+GET /api/searchProducts?q=...
+    params: q=String
+    return [JSONS]
+
+GET /api/getProducts/:username
+    params: username
+    return [JSONS]
+
+GET /api/profile/:username
+    params: username
+    return {UserInfo}
+
+
+POST /api/users
+    header: {
+        x-access-token: String
+    }
+    return [UserInfos]
+
+POST /api/postProduct
+    header: {
+        x-access-token: String   
+    }
+    data: {
+        name: String
+        description: String
+    }
+    return {
+        success: Boolean
+        message: String
+    }
+
+POST /api/eraseProduct
+    header: {
+        x-access-token: String   
+    }
+    data: {
+        productId: String
+    }
+    return {
+        success: Boolean
+        message: String
+    }
+
+
+
+

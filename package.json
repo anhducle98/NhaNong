@@ -1,0 +1,12 @@
+{
+  "name": "node-token-jwt",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "cors": "^2.8.3",
+    "express-handlebars": "^3.0.0",
+    "mongoose-search-plugin": "^0.1.2",
+    "mongoose-searchable": "^1.0.0",
+    "multer": "^1.3.0"
+  }
+}

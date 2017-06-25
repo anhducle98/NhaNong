@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Profile</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <link href="/css/nongdan.css" rel="stylesheet">
+  <link href="/css/luagao.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  <link href="/css/profile.css" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#myPage">Logo</a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#myPage">Trang Chủ</a></li>
+          <li><a href="#band">Sản Phẩm</a></li>
+          <li><a href="#contact">Liên hệ</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+<div class="row" style="margin-top: 100px; background-color: #e1e1d0">
+    <div class="col-sm-4">
+        <div class="card1">
+            <img src="/image/1.jpg" alt="John" style="width:100%">
+                <div class="container1">
+                    <h1 id="usernameHeader">ABC</h1>
+                    <p>Ha Noi</p>
+                    <a href="#"><i class="fa fa-dribbble"></i></a>
+                    <a href="#"><i class="fa fa-twitter"></i></a>
+                    <a href="#"><i class="fa fa-facebook"></i></a>
+                </div>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <div class="row">
+            <div class="col-sm-4" style="font-size: 25px; text-align: center"> <i class="fa fa-smile-o" aria-hidden="true"></i> 2 </div>
+            <div class="col-sm-4" style="font-size: 25px; text-align: center"> <i class="fa fa-meh-o" aria-hidden="true"></i> 1 </div>
+            <div class="col-sm-4" style="font-size: 25px; text-align: center"> <i class="fa fa-frown-o" aria-hidden="true"></i> 0 </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4"><button> Người Theo Dõi </button></div>
+            <div class="col-sm-4"><button> Đang Theo Dõi </button></div>
+            <div class="col-sm-4"v><button> Hàng được yêu thích </button></div>
+        </div>
+        <div class="col-sm-8" style="margin-top: 50px; font-size: 20px">
+            <div class="row">
+              <div class="col-sm-4"><span>Ten: </span></div>
+              <div class="col-sm-8"><span id="nameSpan"></span></div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4"><span>Dia Chi: </span></div>
+              <div class="col-sm-8"><span id="addressSpan"></span></div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4"><span>SDT: </span></div>
+              <div class="col-sm-8"><span id="phoneSpan"></span></div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4"><span>Gioi thieu: </span></div>
+              <div class="col-sm-8"><span id="descriptionSpan"></span></div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<div class="container-fluid bg-3 text-center">
+    <h3>Các sản phẩm đã đăng bán</h3><br>
+  <div id="productsContainer" class="row">
+  
+  </div>
+</div><br>
+
+<div class="container-fluid bg-3 text-center">
+  <div id="lowerRow" class="row">
+    
+  </div>
+</div><br><br>
+
+<footer class="container-fluid text-center">
+  <p>NHÀ NÔNG</p>
+</footer>
+
+<script type="text/javascript">
+  var username = "{{username}}";
+  $.ajax({
+    url: `http://localhost:8888/api/profile/${username}`,
+    type: 'GET',
+    success: (userInfo) => {
+      usernameHeader.innerHTML = userInfo.name;
+      nameSpan.innerHTML = userInfo.name;
+      addressSpan.innerHTML = userInfo.address;
+      phoneSpan.innerHTML = userInfo.phoneNumber;
+      descriptionSpan.innerHTML = userInfo.description;
+
+      let container = $("#productsContainer");
+      for (let e of userInfo.products) {
+        let col = $('<div class="col-sm-3"></div>');
+        col.append($(`<p>${e.name}</p>`));
+        col.append($('<img src="/image/luagao.jpg" class="image" style="width:100%" alt="Image">'));
+        let overlay = $('<div class="overlay"></div>');
+        overlay.append(`<div style="font-size: 18px; margin-top: 50px">${e.description}</div>`);
+        col.append(overlay);
+        container.append(col);
+      }
+    }
+  });
+</script>
+
+</body>
+</html>
